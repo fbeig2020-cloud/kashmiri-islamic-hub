@@ -1,0 +1,19 @@
+{
+  "_note": "PROPOSAL derived from REQ-001..013. Not created anywhere yet. Edit freely; the Data model tab renders this file.",
+  "tables": [
+    {"name": "content_idea", "from": ["REQ-001"], "fields": ["id", "topic", "angle", "language", "status", "created_at"], "relations": ["has many script"]},
+    {"name": "script", "from": ["REQ-002"], "fields": ["id", "idea_id", "body", "language", "version", "status"], "relations": ["belongs to content_idea", "has many subtitle_track", "has one content_item"]},
+    {"name": "scripture_reference", "from": ["REQ-003"], "fields": ["id", "script_id", "source (quran|hadith)", "citation", "text", "translation"], "relations": ["belongs to script"]},
+    {"name": "subtitle_track", "from": ["REQ-004"], "fields": ["id", "script_id", "language", "cues", "status"], "relations": ["belongs to script"]},
+    {"name": "thumbnail", "from": ["REQ-005"], "fields": ["id", "content_item_id", "image_ref", "prompt", "status"], "relations": ["belongs to content_item"]},
+    {"name": "content_item", "from": ["REQ-006", "REQ-013"], "fields": ["id", "script_id", "platform", "title", "state", "external_id", "published_at"], "relations": ["has many thumbnail", "has many approval", "has many performance_snapshot"]},
+    {"name": "review_flag", "from": ["REQ-011"], "fields": ["id", "subject_type", "subject_id", "reason", "raised_at", "resolved_by", "resolved_at"], "relations": ["points at any AI output"]},
+    {"name": "approval", "from": ["REQ-012"], "fields": ["id", "content_item_id", "reviewer", "decision", "comment", "decided_at"], "relations": ["belongs to content_item"]},
+    {"name": "audit_event", "from": ["REQ-011", "REQ-012"], "fields": ["id", "actor", "action", "subject_type", "subject_id", "at"], "relations": ["append-only"]},
+    {"name": "audience_insight", "from": ["REQ-007"], "fields": ["id", "period", "interest", "evidence", "created_at"], "relations": []},
+    {"name": "performance_snapshot", "from": ["REQ-008"], "fields": ["id", "content_item_id", "captured_at", "metrics"], "relations": ["belongs to content_item"]},
+    {"name": "engagement_strategy", "from": ["REQ-009"], "fields": ["id", "insight_id", "recommendation", "status"], "relations": ["belongs to audience_insight"]},
+    {"name": "growth_strategy", "from": ["REQ-010"], "fields": ["id", "recommendation", "rationale", "status"], "relations": []},
+    {"name": "channel_connection", "from": ["REQ-013"], "fields": ["id", "platform", "status", "last_checked_at"], "relations": ["referenced by content_item.platform"]}
+  ]
+}

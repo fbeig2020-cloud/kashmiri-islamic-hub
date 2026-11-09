@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Command Center</title>
+<link rel="stylesheet" href="cc/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span id="proj-name">Command Center</span><small id="proj-desc"></small></div>
+  <label class="mode" title="Sample fills the page with made-up data. Real shows only what the project has produced.">
+    Data:
+    <select id="mode"><option value="real">Real</option><option value="sample">Sample</option></select>
+  </label>
+</header>
+<div id="asof" class="asof"></div>
+<div id="sample-banner" class="sample-banner" hidden>SAMPLE DATA — made-up numbers for illustration. Nothing here is real. Switch to Real to see the project.</div>
+<nav id="tabs"></nav>
+<main id="view"></main>
+<script src="cc/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1",
+  "projectId": "79a40256-4202-4f94-ab78-756a4cff08e4",
+  "storyId": "STORY-000",
+  "projectTruthBaseRevision": 0,
+  "observedAt": "2026-11-09T00:00:00Z",
+  "sourceCommitSha": null,
+  "factProposals": [
+    { "dimension": "systems", "value": "The Command Center is a static page that reads .colaberry/plan.json, progress.json and manifest.json at runtime.", "evidence": "cc/app.js" },
+    { "dimension": "integrations", "value": "System connection status is never inferred from the repo; every system shows 'not checked from here'.", "evidence": "cc/app.js" }
+  ],
+  "decisions": [
+    { "statement": "Where the plan has no scoped agent roster, the AI agents tab shows story owners and labels them as owners, not agents.", "rationale": "A job title is not an AI agent.", "evidence": "cc/app.js" },
+    { "statement": "The proposed data model lives in cc/datamodel.json, separate from code, and is marked proposal-only.", "rationale": "The model must be reviewed before tables are created.", "evidence": "cc/datamodel.json" }
+  ],
+  "limitations": [
+    { "statement": "Notes in the Knowledge base are stored in the browser only (localStorage).", "evidence": "cc/app.js" },
+    { "statement": "The chat panel is a keyword search over the loaded data, not a language model.", "evidence": "cc/app.js" }
+  ],
+  "demonstrationEvidence": [],
+  "measurementEvents": []
+}
