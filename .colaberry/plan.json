@@ -1,0 +1,734 @@
+{
+  "schema_version": 2,
+  "project_name": "Kashmiri Islamic Hub",
+  "descriptor": "An AI-powered platform for creating and promoting Islamic content, focusing on Kashmiri-speaking Muslims.",
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "kind": "FUNC",
+      "cluster": "Content Creation",
+      "priority": "must",
+      "statement": "The system must generate engaging Islamic video ideas using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-001"
+      ]
+    },
+    {
+      "id": "REQ-002",
+      "kind": "FUNC",
+      "cluster": "Content Creation",
+      "priority": "must",
+      "statement": "The system must create scripts for Islamic videos using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-002"
+      ]
+    },
+    {
+      "id": "REQ-003",
+      "kind": "FUNC",
+      "cluster": "Content Creation",
+      "priority": "must",
+      "statement": "The system must produce Quran and Hadith educational content using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-004"
+      ]
+    },
+    {
+      "id": "REQ-004",
+      "kind": "FUNC",
+      "cluster": "Content Creation",
+      "priority": "must",
+      "statement": "The system must prepare subtitles for videos using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-005"
+      ]
+    },
+    {
+      "id": "REQ-005",
+      "kind": "FUNC",
+      "cluster": "Content Creation",
+      "priority": "must",
+      "statement": "The system must design thumbnails for videos using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-006"
+      ]
+    },
+    {
+      "id": "REQ-006",
+      "kind": "FUNC",
+      "cluster": "Content Distribution",
+      "priority": "must",
+      "statement": "The system must develop content for YouTube and other social media platforms.",
+      "from_dimensions": [
+        "desired_outcome",
+        "systems"
+      ],
+      "fulfilled_by": [
+        "STORY-007"
+      ]
+    },
+    {
+      "id": "REQ-007",
+      "kind": "FUNC",
+      "cluster": "Analytics",
+      "priority": "must",
+      "statement": "The system must use AI-powered analytics to understand audience interests.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-008"
+      ]
+    },
+    {
+      "id": "REQ-008",
+      "kind": "FUNC",
+      "cluster": "Analytics",
+      "priority": "must",
+      "statement": "The system must monitor video performance using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-009"
+      ]
+    },
+    {
+      "id": "REQ-009",
+      "kind": "FUNC",
+      "cluster": "Analytics",
+      "priority": "must",
+      "statement": "The system must improve engagement strategies using AI insights.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-010"
+      ]
+    },
+    {
+      "id": "REQ-010",
+      "kind": "FUNC",
+      "cluster": "Analytics",
+      "priority": "must",
+      "statement": "The system must identify strategies to increase subscribers using AI.",
+      "from_dimensions": [
+        "desired_outcome",
+        "ai_opportunities"
+      ],
+      "fulfilled_by": [
+        "STORY-011"
+      ]
+    },
+    {
+      "id": "REQ-011",
+      "kind": "SAFE",
+      "cluster": "Content Review",
+      "priority": "must",
+      "statement": "The system must flag content generation and analysis for human review when uncertain.",
+      "from_dimensions": [
+        "human_only_decisions",
+        "success_definition"
+      ],
+      "fulfilled_by": [
+        "STORY-003",
+        "STORY-013"
+      ]
+    },
+    {
+      "id": "REQ-012",
+      "kind": "SAFE",
+      "cluster": "Content Review",
+      "priority": "must",
+      "statement": "The system must allow human approval of all content proposals before publishing.",
+      "from_dimensions": [
+        "human_only_decisions",
+        "success_definition"
+      ],
+      "fulfilled_by": [
+        "STORY-012"
+      ]
+    },
+    {
+      "id": "REQ-013",
+      "kind": "CONSTRAINT",
+      "cluster": "Integrations",
+      "priority": "must",
+      "statement": "The system must connect to YouTube for content distribution.",
+      "from_dimensions": [
+        "systems"
+      ],
+      "fulfilled_by": [
+        "STORY-007"
+      ]
+    }
+  ],
+  "releases": [
+    {
+      "key": "r0",
+      "demo": "Demonstrate AI-generated video ideas and script creation with human review in place.",
+      "goal": "Establish core content creation capabilities and ensure human review process.",
+      "name": "Initial Setup and Basic Content Creation",
+      "week_end": 1,
+      "week_start": 0,
+      "story_ids": [
+        "STORY-001",
+        "STORY-002",
+        "STORY-003",
+        "STORY-013"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r1",
+      "demo": "Showcase a complete video production with subtitles and thumbnails, ready for YouTube.",
+      "goal": "Expand content creation to include full video production and distribution.",
+      "name": "Advanced Content Creation and Distribution",
+      "week_end": 3,
+      "week_start": 2,
+      "story_ids": [
+        "STORY-004",
+        "STORY-005",
+        "STORY-006",
+        "STORY-007"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r2",
+      "demo": "Demonstrate AI analytics providing insights on audience interests and engagement strategies.",
+      "goal": "Implement analytics to understand audience and improve engagement.",
+      "name": "Analytics and Audience Engagement",
+      "week_end": 5,
+      "week_start": 4,
+      "story_ids": [
+        "STORY-008",
+        "STORY-009",
+        "STORY-010"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r3",
+      "demo": "Show AI-driven strategies to increase subscribers and optimize content reach.",
+      "goal": "Enhance strategies for subscriber growth using AI insights.",
+      "name": "Subscriber Growth and Strategy Optimization",
+      "week_end": 7,
+      "week_start": 6,
+      "story_ids": [
+        "STORY-011"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r4",
+      "demo": "Show full platform operation with all features integrated and optimized for user experience.",
+      "goal": "Finalize platform integration and optimize all features for seamless operation.",
+      "name": "Full Platform Integration and Optimization",
+      "week_end": 9,
+      "week_start": 8,
+      "story_ids": [
+        "STORY-012"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    }
+  ],
+  "stories": [
+    {
+      "id": "STORY-001",
+      "title": "Generate AI-powered video ideas",
+      "release": "r0",
+      "fulfills": [
+        "REQ-001"
+      ],
+      "narrative": "As an educator, I want AI to generate video ideas, so that I can create engaging Islamic content.",
+      "workspace": {
+        "ref": "Content Creation Dashboard",
+        "kind": "workspace",
+        "action": "generate ideas"
+      },
+      "acceptance": [
+        "Given the AI system, when prompted, then it generates a list of video ideas.",
+        "Given an inappropriate idea, when flagged, then it is removed from the list.",
+        "Trust: All generated ideas are logged for review."
+      ],
+      "blocked_by": [],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates irrelevant ideas",
+        "AI fails to generate any ideas",
+        "Generated ideas are not logged",
+        "System crashes during idea generation",
+        "Inappropriate ideas are not flagged"
+      ],
+      "task_guidance": "Implement AI model to generate video ideas based on Islamic content themes.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-002",
+      "title": "Create AI-generated video scripts",
+      "release": "r0",
+      "fulfills": [
+        "REQ-002"
+      ],
+      "narrative": "As an educator, I want AI to create video scripts, so that I can produce content efficiently.",
+      "workspace": {
+        "ref": "Content Creation Dashboard",
+        "kind": "workspace",
+        "action": "create scripts"
+      },
+      "acceptance": [
+        "Given a video idea, when processed, then the system generates a script.",
+        "Given an incomplete script, when reviewed, then it is flagged for human completion.",
+        "Trust: All scripts are logged for review."
+      ],
+      "blocked_by": [],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates incomplete scripts",
+        "Scripts are not logged",
+        "System fails to save scripts",
+        "Generated scripts are not flagged for review",
+        "AI generates inappropriate content"
+      ],
+      "task_guidance": "Develop script generation module using AI language models.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-003",
+      "title": "Flag content for human review",
+      "release": "r0",
+      "fulfills": [
+        "REQ-011"
+      ],
+      "narrative": "As an educator, I want the system to flag uncertain content for review, so that I can ensure accuracy.",
+      "workspace": {
+        "ref": "Review Dashboard",
+        "kind": "workspace",
+        "action": "review flagged content"
+      },
+      "acceptance": [
+        "Given a generated script, when uncertain, then it is flagged for review.",
+        "Given a flagged item, when reviewed, then it is either approved or rejected.",
+        "Trust: All flagged items are logged with reviewer actions."
+      ],
+      "blocked_by": [],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "System fails to flag uncertain content",
+        "Flagged content is not logged",
+        "Review actions are not recorded",
+        "System crashes during flagging",
+        "Flagged content is not visible to reviewers"
+      ],
+      "task_guidance": "Implement flagging mechanism for uncertain content and log review actions.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-004",
+      "title": "Produce Quran and Hadith educational content",
+      "release": "r1",
+      "fulfills": [
+        "REQ-003"
+      ],
+      "narrative": "As an educator, I want AI to produce educational content, so that I can teach effectively.",
+      "workspace": {
+        "ref": "Content Production Dashboard",
+        "kind": "workspace",
+        "action": "produce content"
+      },
+      "acceptance": [
+        "Given a script, when processed, then the system produces educational content.",
+        "Given incorrect content, when reviewed, then it is flagged for correction.",
+        "Trust: All produced content is logged for review."
+      ],
+      "blocked_by": [
+        "STORY-002"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI produces incorrect content",
+        "Content is not logged",
+        "System fails to produce content",
+        "Produced content is not flagged for review",
+        "AI generates inappropriate content"
+      ],
+      "task_guidance": "Use AI to generate educational content based on scripts and Islamic texts.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-005",
+      "title": "Prepare AI-generated subtitles",
+      "release": "r1",
+      "fulfills": [
+        "REQ-004"
+      ],
+      "narrative": "As an educator, I want AI to prepare subtitles, so that my videos are accessible.",
+      "workspace": {
+        "ref": "Content Production Dashboard",
+        "kind": "workspace",
+        "action": "generate subtitles"
+      },
+      "acceptance": [
+        "Given a video, when processed, then the system generates subtitles.",
+        "Given incorrect subtitles, when reviewed, then they are flagged for correction.",
+        "Trust: All subtitles are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-004"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates incorrect subtitles",
+        "Subtitles are not logged",
+        "System fails to save subtitles",
+        "Generated subtitles are not flagged for review",
+        "AI generates inappropriate subtitles"
+      ],
+      "task_guidance": "Develop subtitle generation module using AI language models.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-006",
+      "title": "Design AI-generated thumbnails",
+      "release": "r1",
+      "fulfills": [
+        "REQ-005"
+      ],
+      "narrative": "As an educator, I want AI to design thumbnails, so that my videos attract viewers.",
+      "workspace": {
+        "ref": "Content Production Dashboard",
+        "kind": "workspace",
+        "action": "design thumbnails"
+      },
+      "acceptance": [
+        "Given a video, when processed, then the system generates a thumbnail.",
+        "Given an inappropriate thumbnail, when reviewed, then it is flagged for redesign.",
+        "Trust: All thumbnails are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-004"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates inappropriate thumbnails",
+        "Thumbnails are not logged",
+        "System fails to save thumbnails",
+        "Generated thumbnails are not flagged for review",
+        "AI generates irrelevant thumbnails"
+      ],
+      "task_guidance": "Implement AI model to generate video thumbnails based on content themes.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-007",
+      "title": "Distribute content to YouTube",
+      "release": "r1",
+      "fulfills": [
+        "REQ-006",
+        "REQ-013"
+      ],
+      "narrative": "As an educator, I want to distribute content to YouTube, so that I can reach a wider audience.",
+      "workspace": {
+        "ref": "Content Distribution Dashboard",
+        "kind": "workspace",
+        "action": "upload to YouTube"
+      },
+      "acceptance": [
+        "Given a completed video, when ready, then it is uploaded to YouTube.",
+        "Given a failed upload, when retried, then it succeeds or logs an error.",
+        "Trust: All uploads are logged with status."
+      ],
+      "blocked_by": [
+        "STORY-005",
+        "STORY-006"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "Failed upload to YouTube",
+        "Uploads are not logged",
+        "System crashes during upload",
+        "Incorrect video uploaded",
+        "API integration fails"
+      ],
+      "task_guidance": "Integrate with YouTube API for content distribution.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-008",
+      "title": "Analyze audience interests using AI",
+      "release": "r2",
+      "fulfills": [
+        "REQ-007"
+      ],
+      "narrative": "As an educator, I want AI to analyze audience interests, so that I can tailor content.",
+      "workspace": {
+        "ref": "Analytics Dashboard",
+        "kind": "workspace",
+        "action": "analyze interests"
+      },
+      "acceptance": [
+        "Given audience data, when analyzed, then the system provides insights.",
+        "Given incorrect insights, when reviewed, then they are flagged for correction.",
+        "Trust: All analysis results are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-007"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates incorrect insights",
+        "Insights are not logged",
+        "System fails to analyze data",
+        "Analysis results are not flagged for review",
+        "AI generates irrelevant insights"
+      ],
+      "task_guidance": "Develop analytics module to process audience data and generate insights.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-009",
+      "title": "Monitor video performance using AI",
+      "release": "r2",
+      "fulfills": [
+        "REQ-008"
+      ],
+      "narrative": "As an educator, I want AI to monitor video performance, so that I can improve content.",
+      "workspace": {
+        "ref": "Analytics Dashboard",
+        "kind": "workspace",
+        "action": "monitor performance"
+      },
+      "acceptance": [
+        "Given video data, when monitored, then the system provides performance metrics.",
+        "Given incorrect metrics, when reviewed, then they are flagged for correction.",
+        "Trust: All performance data is logged for review."
+      ],
+      "blocked_by": [
+        "STORY-008"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates incorrect metrics",
+        "Metrics are not logged",
+        "System fails to monitor performance",
+        "Performance data is not flagged for review",
+        "AI generates irrelevant metrics"
+      ],
+      "task_guidance": "Implement performance monitoring using AI to track video metrics.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-010",
+      "title": "Improve engagement strategies using AI insights",
+      "release": "r2",
+      "fulfills": [
+        "REQ-009"
+      ],
+      "narrative": "As an educator, I want to improve engagement strategies, so that I can increase audience interaction.",
+      "workspace": {
+        "ref": "Engagement Dashboard",
+        "kind": "workspace",
+        "action": "update strategies"
+      },
+      "acceptance": [
+        "Given AI insights, when applied, then engagement strategies are updated.",
+        "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+        "Trust: All strategy changes are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-009"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates ineffective strategies",
+        "Strategies are not logged",
+        "System fails to update strategies",
+        "Strategy changes are not flagged for review",
+        "AI generates irrelevant strategies"
+      ],
+      "task_guidance": "Use AI insights to refine and implement new engagement strategies.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-011",
+      "title": "Identify strategies to increase subscribers using AI",
+      "release": "r3",
+      "fulfills": [
+        "REQ-010"
+      ],
+      "narrative": "As an educator, I want AI to identify strategies to increase subscribers, so that I can grow my audience.",
+      "workspace": {
+        "ref": "Growth Dashboard",
+        "kind": "workspace",
+        "action": "suggest strategies"
+      },
+      "acceptance": [
+        "Given audience data, when analyzed, then the system suggests subscriber growth strategies.",
+        "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+        "Trust: All strategy suggestions are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-010"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "AI generates ineffective strategies",
+        "Strategies are not logged",
+        "System fails to suggest strategies",
+        "Strategy suggestions are not flagged for review",
+        "AI generates irrelevant strategies"
+      ],
+      "task_guidance": "Develop AI module to analyze data and suggest subscriber growth strategies.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-012",
+      "title": "Finalize platform integration and optimization",
+      "release": "r4",
+      "fulfills": [
+        "REQ-012"
+      ],
+      "narrative": "As an educator, I want the platform fully integrated and optimized, so that I can use it seamlessly.",
+      "workspace": {
+        "ref": "Platform Dashboard",
+        "kind": "workspace",
+        "action": "finalize integration"
+      },
+      "acceptance": [
+        "Given the platform, when fully integrated, then all features work seamlessly.",
+        "Given integration issues, when identified, then they are flagged for correction.",
+        "Trust: All integration changes are logged for review."
+      ],
+      "blocked_by": [
+        "STORY-011"
+      ],
+      "owner_agent": "AI System",
+      "failure_paths": [
+        "Integration issues occur",
+        "Features do not work seamlessly",
+        "Integration changes are not logged",
+        "System crashes during integration",
+        "Optimization fails"
+      ],
+      "task_guidance": "Ensure all system components are integrated and optimized for performance.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-013",
+      "title": "Establish content approval and audit trail",
+      "release": "r0",
+      "fulfills": [
+        "REQ-011"
+      ],
+      "narrative": "As a content manager, I want to ensure all content goes through an approval process and is logged, so that we maintain quality and accountability.",
+      "workspace": {
+        "ref": "Content Approval Dashboard",
+        "kind": "workspace",
+        "action": "approve"
+      },
+      "acceptance": [
+        "Given a new video script is generated, When it is flagged for review, Then it must be approved by a content manager before publication.",
+        "Given a video script is approved, When it is published, Then an entry is created in the audit log with the approval details.",
+        "Trust: Given a video script is flagged, When it is approved or rejected, Then the action is recorded in the audit trail."
+      ],
+      "blocked_by": [],
+      "owner_agent": "content_manager",
+      "failure_paths": [
+        "Approval request not logged",
+        "Audit trail entry missing",
+        "Approval status not updated"
+      ],
+      "task_guidance": "Implement an approval workflow for video scripts with logging to the audit trail. Ensure all actions are recorded in the audit log table.",
+      "due_on": null,
+      "due_baseline_on": null
+    }
+  ],
+  "agents": [],
+  "project": {
+    "name": "Kashmiri Islamic Hub",
+    "descriptor": "An AI-powered platform for creating and promoting Islamic content, focusing on Kashmiri-speaking Muslims.",
+    "repo_url": null,
+    "plan_version": 1,
+    "plan_sha256": "5c0ecef37e6646466e7b737967f5d9e57cbdd5c417d7e2411cfa3ebb26741e4d"
+  },
+  "schedule": null,
+  "derived": {
+    "measures": [],
+    "guardrails": [
+      {
+        "id": "REQ-011",
+        "statement": "The system must flag content generation and analysis for human review when uncertain."
+      },
+      {
+        "id": "REQ-012",
+        "statement": "The system must allow human approval of all content proposals before publishing."
+      }
+    ],
+    "systems": [
+      "YouTube"
+    ],
+    "roles": [
+      "educator",
+      "content manager"
+    ],
+    "counts": {
+      "requirements_total": 13,
+      "requirements_by_kind": {
+        "CONSTRAINT": 1,
+        "FUNC": 10,
+        "SAFE": 2
+      },
+      "stories_total": 13,
+      "releases_total": 5,
+      "agents_total": 0,
+      "failure_paths_total": 59,
+      "agents_by_autonomy": {}
+    }
+  }
+}

@@ -57,8 +57,18 @@ async function load() {
       real[k] = await r.json();
     } catch (e) { real.errors.push(`.colaberry/${k}.json`); }
   }
+  normalise(real.plan);
   try { real.model = await (await fetch('cc/datamodel.json')).json(); } catch { /* optional */ }
 }
+// The real plan names some fields differently from the sample; accept both, never invent values.
+function normalise(plan) {
+  if (!plan) return;
+  (plan.releases || []).forEach((r) => { r.title ??= r.name; });
+  (plan.stories || []).forEach((st) => { st.acceptance_criteria ??= st.acceptance; st.owner ??= st.owner_agent; });
+}
+// Stories present in progress but not in the plan (e.g. STORY-000, the Command Center itself).
+const extraStories = () => (D().progress?.stories || []).filter((x) => !stories().some((s) => s.id === x.id))
+  .map((x) => ({ id: x.id, title: x.id === 'STORY-000' ? 'Build the Command Center' : '(progress only)', release: x.release, narrative: 'Tracked in progress.json only; not part of the plan.', acceptance_criteria: (x.criteria || []).map((c) => c.text), progressOnly: true }));
 const D = () => (mode === 'sample' ? SAMPLE : real);
 
 // ---- helpers over the data ----
@@ -112,8 +122,8 @@ function overview(detail) {
   h += card('Stories verified', `${esc(t.stories_verified ?? '–')} of ${esc(t.stories_total ?? '–')}`, 'from progress.totals', '#/overview/stories');
   h += card('Criteria passed', `${esc(t.criteria_passed ?? '–')} of ${esc(t.criteria_total ?? '–')}`, 'from progress.totals', '#/overview/criteria');
   h += card('Points awarded', esc(t.points_awarded ?? '–'), 'from progress.totals', '#/overview/points');
-  h += card('Demo release', esc(s.demo_release_key || '–'), s.demo_day ? `Demo day ${s.demo_day}` : 'no demo day in plan', '#/overview/schedule');
-  h += card('Build window', esc(s.build_start && s.build_end ? `${s.build_start} → ${s.build_end}` : '–'), 'from plan.schedule', '#/overview/schedule');
+  h += card('Demo release', esc(s.demo_release_key || 'Not set'), s.demo_day ? `Demo day ${s.demo_day}` : 'no demo day in plan', '#/overview/schedule');
+  h += card('Build window', esc(s.build_start && s.build_end ? `${s.build_start} → ${s.build_end}` : 'Not scheduled'), (s.build_start ? 'from plan.schedule' : 'plan.schedule is empty'), '#/overview/schedule');
   h += card('Live systems', 'Not checked', 'nothing here can confirm a connection', '#/overview/live');
   return h + '</div>';
 }
@@ -121,9 +131,10 @@ function overviewDetail(which) {
   const titles = { stories: 'Stories verified', criteria: 'Criteria passed', points: 'Points awarded', schedule: 'Schedule', live: 'What is live' };
   let h = back('overview', 'Overview') + `<h1>${esc(titles[which] || which)}</h1>`;
   if (needData()) return h + notSynced();
+  if (which === 'schedule' && !Object.keys(planOf().schedule || {}).length) return h + empty('The plan carries no schedule (no build window, demo day or demo release). Nothing is invented; it appears here once the plan has one.');
   if (which === 'schedule') return h + `<table>${Object.entries(planOf().schedule || {}).map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table>`;
   if (which === 'live') return h + empty('<span class="dot"></span>Not checked from here. Connection status is a fact about the running system, which these files cannot report. See the Systems tab.');
-  const rows = stories().map((st) => tr([link(`#/projects/${st.id}`, st.id), esc(st.title), esc(st.release), esc(stateOf(st.id)), esc(verOf(st.id).points ?? '')]));
+  const rows = [...stories(), ...extraStories()].map((st) => tr([link(`#/projects/${st.id}`, st.id), esc(st.title), esc(st.release ?? '—'), esc(stateOf(st.id)), esc(verOf(st.id).points ?? '')]));
   return h + (rows.length ? table(['ID', 'Title', 'Release', 'State', 'Points'], rows) : empty('No stories in the plan.'));
 }
 
@@ -194,19 +205,19 @@ function systems(name) {
 const day = (s) => Date.parse(s) / 864e5;
 function projects(id) {
   if (id) {
-    const st = stories().find((s) => s.id === id);
+    const st = stories().find((s) => s.id === id) || extraStories().find((s) => s.id === id);
     if (!st) return back('projects', 'Project management') + empty('No such story in the plan.');
     const v = verOf(id);
     const crit = progressCriteria(id);
     return back('projects', 'Project management') + `<h1>${esc(st.id)} — ${esc(st.title)}</h1><p>${esc(st.narrative)}</p>` +
-      `<table><tr><th>Release</th><td>${esc(st.release)}</td></tr><tr><th>Due (current)</th><td>${esc(st.due_on)}</td></tr><tr><th>Due (first given)</th><td>${esc(st.due_baseline_on)}</td></tr><tr><th>State</th><td>${esc(stateOf(id))}</td></tr><tr><th>Commit</th><td>${esc(v.commit || 'none')}</td></tr><tr><th>Points</th><td>${esc(v.points ?? 'none')}</td></tr></table>` +
+      `<table><tr><th>Release</th><td>${esc(st.release ?? '—')}</td></tr><tr><th>Due (current)</th><td>${esc(st.due_on || 'not set in plan')}</td></tr><tr><th>Due (first given)</th><td>${esc(st.due_baseline_on || 'not set in plan')}</td></tr><tr><th>State</th><td>${esc(stateOf(id))}</td></tr><tr><th>Commit</th><td>${esc(v.commit || 'none')}</td></tr><tr><th>Points</th><td>${esc(v.points ?? 'none')}</td></tr></table>` +
       '<h2>Acceptance criteria</h2>' + ((st.acceptance_criteria || []).length ? `<ul>${(st.acceptance_criteria).map((c) => `<li>${esc(typeof c === 'string' ? c : c.text)}${crit(c)}</li>`).join('')}</ul>` : empty('No criteria in the plan.'));
   }
   let h = '<h1>Project management</h1>';
   if (needData()) return h + notSynced();
   const rel = planOf().releases || [], sc = planOf().schedule || {};
   const dated = rel.filter((r) => r.starts_on && r.ends_on);
-  h += `<p class="lead">Build ${esc(sc.build_start)} → ${esc(sc.build_end)}; demo day ${esc(sc.demo_day)}. The week between build end and demo day is demo prep. Releases after the demo target are the roadmap.</p>`;
+  h += sc.build_start ? `<p class="lead">Build ${esc(sc.build_start)} → ${esc(sc.build_end)}; demo day ${esc(sc.demo_day)}. The week between build end and demo day is demo prep. Releases after the demo target are the roadmap.</p>` : empty('The plan carries no schedule or release dates, so there is no Gantt to draw. Releases are listed below by build week; no dates are invented.') + '<br>';
   if (dated.length) {
     const lo = Math.min(...dated.map((r) => day(r.starts_on)), sc.build_start ? day(sc.build_start) : Infinity);
     const hi = Math.max(...dated.map((r) => day(r.ends_on)), sc.demo_day ? day(sc.demo_day) : -Infinity);
@@ -215,10 +226,12 @@ function projects(id) {
       const l = ((day(r.starts_on) - lo) / span) * 100, w = Math.max(((day(r.ends_on) - day(r.starts_on)) / span) * 100, 1.5);
       return `<div class="grow"><span class="glabel">${link(`#/projects/release/${r.key}`, r.key)} ${esc(r.title)}${r.is_demo_target ? ' <b>(demo target)</b>' : ' <i>(roadmap)</i>'}${tag()}</span><div class="gtrack"><div class="gbar ${r.is_demo_target ? 'demo' : ''}" style="left:${l}%;width:${w}%">${esc(r.starts_on)} → ${esc(r.ends_on)}</div></div></div>`;
     }).join('') + '</div>';
-  } else h += empty('No dated releases in the plan.');
+  } else if (rel.length) {
+    h += table(['Release', 'Name', 'Weeks', 'Stories', 'Goal'], rel.map((r) => tr([link(`#/projects/release/${r.key}`, r.key), esc(r.title), `${esc(r.week_start ?? '?')}–${esc(r.week_end ?? '?')}`, (r.story_ids || []).length, esc(r.goal || '')])));
+  } else h += empty('No releases in the plan.');
   const rows = stories().map((s) => {
     const slip = s.due_on && s.due_baseline_on ? Math.round(day(s.due_on) - day(s.due_baseline_on)) : null;
-    return tr([link(`#/projects/${s.id}`, s.id), esc(s.title), esc(s.release), esc(s.due_on), esc(s.due_baseline_on), slip == null ? '' : slip > 0 ? `<b>+${slip}d slipped</b>` : 'none', esc(stateOf(s.id))]);
+    return tr([link(`#/projects/${s.id}`, s.id), esc(s.title), esc(s.release), esc(s.due_on || 'not set'), esc(s.due_baseline_on || 'not set'), slip == null ? '—' : slip > 0 ? `<b>+${slip}d slipped</b>` : 'none', esc(stateOf(s.id))]);
   });
   return h + '<h2>Tasks</h2>' + (rows.length ? table(['ID', 'Task', 'Release', 'Due', 'First due', 'Slippage', 'State'], rows) : empty('No stories in the plan.'));
 }
@@ -230,7 +243,7 @@ function progressCriteria(id) {
 function releaseDetail(key) {
   const r = (planOf().releases || []).find((x) => x.key === key);
   if (!r) return back('projects', 'Project management') + empty('No such release.');
-  return back('projects', 'Project management') + `<h1>${esc(r.key)} — ${esc(r.title)}</h1><p>${esc(r.starts_on)} → ${esc(r.ends_on)}${r.is_demo_target ? ' · demo target' : ' · roadmap'}</p>` +
+  return back('projects', 'Project management') + `<h1>${esc(r.key)} — ${esc(r.title)}</h1><p>${r.starts_on ? esc(r.starts_on) + ' → ' + esc(r.ends_on) : 'no dates in plan (build weeks ' + esc(r.week_start ?? '?') + '–' + esc(r.week_end ?? '?') + ')'}${r.is_demo_target ? ' · demo target' : ''}</p>${r.goal ? `<p><b>Goal:</b> ${esc(r.goal)}</p>` : ''}${r.demo ? `<p><b>Demo:</b> ${esc(r.demo)}</p>` : ''}` +
     table(['Story', 'Title', 'State'], (r.story_ids || []).map((s) => tr([link(`#/projects/${s}`, s), esc(stories().find((x) => x.id === s)?.title), esc(stateOf(s))])));
 }
 

@@ -1,15 +1,560 @@
 {
   "schema_version": 2,
+  "project": "Kashmiri Islamic Hub",
+  "totals": {
+    "stories_total": 14,
+    "stories_verified": 0,
+    "stories_submitted": 1,
+    "stories_in_progress": 0,
+    "stories_not_started": 13,
+    "criteria_total": 44,
+    "criteria_passed": 3,
+    "points_awarded": 1489
+  },
   "stories": [
     {
       "id": "STORY-000",
+      "release": null,
+      "acceptance_total": 5,
       "criteria": [
-        { "text": "Given the Command Center, when it is opened, then every tab is reachable and every card drills down one level.", "passed": true },
-        { "text": "Given sample mode, when any tab is shown, then the sample data is visibly labelled as sample.", "passed": true },
-        { "text": "Given the Command Center, when any tab renders, then .colaberry/plan.json and .colaberry/progress.json are both committed in this repo and every tab reads its content from them at runtime rather than from hard-coded values.", "passed": false },
-        { "text": "Given the Command Center, when any tab is shown, then .colaberry/manifest.json is committed in this repo and every tab shows how old that data is and warns when the age exceeds a week.", "passed": false },
-        { "text": "Trust — no tab shows a number, a connection or a result the project has not actually produced.", "passed": true }
-      ]
+        {
+          "text": "Given the Command Center, when it is opened, then every tab is reachable and every card drills down one level.",
+          "passed": true
+        },
+        {
+          "text": "Given sample mode, when any tab is shown, then the sample data is visibly labelled as sample.",
+          "passed": true
+        },
+        {
+          "text": "Given the Command Center, when any tab renders, then .colaberry/plan.json and .colaberry/progress.json are both committed in this repo and every tab reads its content from them at runtime rather than from hard-coded values.",
+          "passed": true
+        },
+        {
+          "text": "Given the Command Center, when any tab is shown, then .colaberry/manifest.json is committed in this repo and every tab shows how old that data is and warns when the age exceeds a week.",
+          "passed": true
+        },
+        {
+          "text": "Trust — no tab shows a number, a connection or a result the project has not actually produced.",
+          "passed": true
+        }
+      ],
+      "files_touched": [
+        "index.html",
+        "cc/app.js",
+        "cc/style.css",
+        "cc/datamodel.json"
+      ],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "submitted",
+        "criteria_passed": 3,
+        "criteria_total": 5,
+        "verified_at": null,
+        "commit_sha": "9b3c23f59830317f8f6aa1787124b0cee758951e",
+        "commit_url": "https://github.com/fbeig2020-cloud/kashmiri-islamic-hub/commit/9b3c23f59830317f8f6aa1787124b0cee758951e",
+        "commit_at": "2026-11-09T23:39:12Z",
+        "points_awarded": 153,
+        "outstanding": [
+          "Given the Command Center, when any tab renders, then .colaberry/plan.json and .colaberry/progress.json are both committed in this repo and every tab reads its content from them at runtime rather than from hard-coded values.",
+          "Given the Command Center, when any tab is shown, then .colaberry/manifest.json is committed in this repo and every tab shows how old that data is and warns when the age exceeds a week."
+        ]
+      }
+    },
+    {
+      "id": "STORY-001",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given the AI system, when prompted, then it generates a list of video ideas.",
+          "passed": false
+        },
+        {
+          "text": "Given an inappropriate idea, when flagged, then it is removed from the list.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All generated ideas are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given the AI system, when prompted, then it generates a list of video ideas.",
+          "Given an inappropriate idea, when flagged, then it is removed from the list.",
+          "Trust: All generated ideas are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-002",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a video idea, when processed, then the system generates a script.",
+          "passed": false
+        },
+        {
+          "text": "Given an incomplete script, when reviewed, then it is flagged for human completion.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All scripts are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a video idea, when processed, then the system generates a script.",
+          "Given an incomplete script, when reviewed, then it is flagged for human completion.",
+          "Trust: All scripts are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-003",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a generated script, when uncertain, then it is flagged for review.",
+          "passed": false
+        },
+        {
+          "text": "Given a flagged item, when reviewed, then it is either approved or rejected.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All flagged items are logged with reviewer actions.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a generated script, when uncertain, then it is flagged for review.",
+          "Given a flagged item, when reviewed, then it is either approved or rejected.",
+          "Trust: All flagged items are logged with reviewer actions."
+        ]
+      }
+    },
+    {
+      "id": "STORY-004",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a script, when processed, then the system produces educational content.",
+          "passed": false
+        },
+        {
+          "text": "Given incorrect content, when reviewed, then it is flagged for correction.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All produced content is logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a script, when processed, then the system produces educational content.",
+          "Given incorrect content, when reviewed, then it is flagged for correction.",
+          "Trust: All produced content is logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-005",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a video, when processed, then the system generates subtitles.",
+          "passed": false
+        },
+        {
+          "text": "Given incorrect subtitles, when reviewed, then they are flagged for correction.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All subtitles are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a video, when processed, then the system generates subtitles.",
+          "Given incorrect subtitles, when reviewed, then they are flagged for correction.",
+          "Trust: All subtitles are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-006",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a video, when processed, then the system generates a thumbnail.",
+          "passed": false
+        },
+        {
+          "text": "Given an inappropriate thumbnail, when reviewed, then it is flagged for redesign.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All thumbnails are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a video, when processed, then the system generates a thumbnail.",
+          "Given an inappropriate thumbnail, when reviewed, then it is flagged for redesign.",
+          "Trust: All thumbnails are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-007",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a completed video, when ready, then it is uploaded to YouTube.",
+          "passed": false
+        },
+        {
+          "text": "Given a failed upload, when retried, then it succeeds or logs an error.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All uploads are logged with status.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 153,
+        "outstanding": [
+          "Given a completed video, when ready, then it is uploaded to YouTube.",
+          "Given a failed upload, when retried, then it succeeds or logs an error.",
+          "Trust: All uploads are logged with status."
+        ]
+      }
+    },
+    {
+      "id": "STORY-008",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given audience data, when analyzed, then the system provides insights.",
+          "passed": false
+        },
+        {
+          "text": "Given incorrect insights, when reviewed, then they are flagged for correction.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All analysis results are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 53,
+        "outstanding": [
+          "Given audience data, when analyzed, then the system provides insights.",
+          "Given incorrect insights, when reviewed, then they are flagged for correction.",
+          "Trust: All analysis results are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-009",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given video data, when monitored, then the system provides performance metrics.",
+          "passed": false
+        },
+        {
+          "text": "Given incorrect metrics, when reviewed, then they are flagged for correction.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All performance data is logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 53,
+        "outstanding": [
+          "Given video data, when monitored, then the system provides performance metrics.",
+          "Given incorrect metrics, when reviewed, then they are flagged for correction.",
+          "Trust: All performance data is logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-010",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given AI insights, when applied, then engagement strategies are updated.",
+          "passed": false
+        },
+        {
+          "text": "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All strategy changes are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given AI insights, when applied, then engagement strategies are updated.",
+          "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+          "Trust: All strategy changes are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-011",
+      "release": "r3",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given audience data, when analyzed, then the system suggests subscriber growth strategies.",
+          "passed": false
+        },
+        {
+          "text": "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All strategy suggestions are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 53,
+        "outstanding": [
+          "Given audience data, when analyzed, then the system suggests subscriber growth strategies.",
+          "Given ineffective strategies, when reviewed, then they are flagged for revision.",
+          "Trust: All strategy suggestions are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-012",
+      "release": "r4",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given the platform, when fully integrated, then all features work seamlessly.",
+          "passed": false
+        },
+        {
+          "text": "Given integration issues, when identified, then they are flagged for correction.",
+          "passed": false
+        },
+        {
+          "text": "Trust: All integration changes are logged for review.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 53,
+        "outstanding": [
+          "Given the platform, when fully integrated, then all features work seamlessly.",
+          "Given integration issues, when identified, then they are flagged for correction.",
+          "Trust: All integration changes are logged for review."
+        ]
+      }
+    },
+    {
+      "id": "STORY-013",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a new video script is generated, When it is flagged for review, Then it must be approved by a content manager before publication.",
+          "passed": false
+        },
+        {
+          "text": "Given a video script is approved, When it is published, Then an entry is created in the audit log with the approval details.",
+          "passed": false
+        },
+        {
+          "text": "Trust: Given a video script is flagged, When it is approved or rejected, Then the action is recorded in the audit trail.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "not_started",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": 53,
+        "outstanding": [
+          "Given a new video script is generated, When it is flagged for review, Then it must be approved by a content manager before publication.",
+          "Given a video script is approved, When it is published, Then an entry is created in the audit log with the approval details.",
+          "Trust: Given a video script is flagged, When it is approved or rejected, Then the action is recorded in the audit trail."
+        ]
+      }
     }
   ]
 }
