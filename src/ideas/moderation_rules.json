@@ -1,0 +1,37 @@
+{
+  "_about": "Edit these two lists to change moderation. Matching ignores upper/lower case. Anything not clearly allowed goes to a human for review.",
+
+  "allowed_themes": [
+    "Quran",
+    "Hadith",
+    "Prophets",
+    "Seerah",
+    "Salah",
+    "Ramadan",
+    "Hajj",
+    "Dua",
+    "Islamic History",
+    "Character and Manners",
+    "Kashmiri Sufi Heritage"
+  ],
+
+  "blocked_terms": [
+    "mock",
+    "ridicule",
+    "insult",
+    "blasphem",
+    "hate",
+    "terror",
+    "violence",
+    "kill",
+    "extremis",
+    "takfir",
+    "sectarian",
+    "gambling",
+    "porn",
+    "depict",
+    "portray",
+    "reenact",
+    "impersonat"
+  ]
+}
