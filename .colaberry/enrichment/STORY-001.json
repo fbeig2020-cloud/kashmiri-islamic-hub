@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1",
+  "projectId": "79a40256-4202-4f94-ab78-756a4cff08e4",
+  "storyId": "STORY-001",
+  "projectTruthBaseRevision": 1,
+  "observedAt": "2026-11-12T01:04:22Z",
+  "sourceCommitSha": "64c22a003f827c0bb36b7588430867b532f64adf",
+  "factProposals": [
+    { "dimension": "data", "value": "Generated ideas are stored in an append-only JSON-lines log at data/ideas.jsonl; each line holds the idea's id, title, theme and status, a timestamp and an idempotency key, and logging the same idea in the same status twice adds no line.", "evidence": "src/ideas/log.py" },
+    { "dimension": "human_only_decisions", "value": "Moderation can only produce the statuses pending, flagged or removed. No code sets an idea to approved, and nothing is published; approval is left to a human.", "evidence": "src/ideas/moderation.py" },
+    { "dimension": "systems", "value": "Idea generation sits behind an IdeaGenerator interface. Only a stub implementation exists, returning a fixed set of ideas, so a real generator can replace it later.", "evidence": "src/ideas/generator.py" },
+    { "dimension": "integrations", "value": "No external AI service is connected; the stub needs no API key and makes no network call.", "evidence": "src/ideas/generator.py" }
+  ],
+  "decisions": [
+    { "statement": "Build the generator as a stub first, with no API key and no network call.", "rationale": "The repository is public and no credential exists.", "evidence": "src/ideas/generator.py" },
+    { "statement": "An idea that is not clearly allowed is flagged for human review instead of being approved or removed.", "rationale": "When the rules are unsure, a person should decide; the code never approves an idea.", "evidence": "src/ideas/moderation.py" },
+    { "statement": "Every generated idea is logged before moderation runs.", "rationale": "A crash during moderation must not lose an idea.", "evidence": "src/ideas/pipeline.py" },
+    { "statement": "The words depict, portray, reenact and impersonat were added to the blocklist at the project owner's request.", "rationale": "The project owner asked for ideas about depicting, portraying, re-enacting or impersonating to be blocked.", "evidence": "src/ideas/moderation_rules.json" }
+  ],
+  "limitations": [
+    { "statement": "The stub ignores the prompt and is not a real AI, so the criterion that the AI generates a list of video ideas is met only with a stub.", "evidence": "src/ideas/generator.py" },
+    { "statement": "The 'AI generates irrelevant ideas' failure path cannot be demonstrated yet, because the stub always returns the same fixed ideas.", "evidence": "src/ideas/generator.py" },
+    { "statement": "Moderation is keyword matching on the start of words, so it can remove harmless ideas, for example a title that uses the word 'depict' innocently.", "evidence": "src/ideas/moderation.py" },
+    { "statement": "The allowlist and blocklist cannot check religious accuracy, so human review is still needed.", "evidence": "src/ideas/moderation_rules.json" },
+    { "statement": "The pipeline does not read statuses back from the log, so re-running it can return an idea as pending even if a human later changed its status.", "evidence": "src/ideas/pipeline.py" },
+    { "statement": "There are no timeouts or retries yet, because nothing makes an external call.", "evidence": "src/ideas/generator.py" },
+    { "statement": "The log supports one writer only; two processes writing at once are not protected against each other.", "evidence": "src/ideas/log.py" }
+  ],
+  "demonstrationEvidence": [
+    { "kind": "test", "ref": "tests/test_model.py" },
+    { "kind": "test", "ref": "tests/test_moderation.py" },
+    { "kind": "test", "ref": "tests/test_generator.py" },
+    { "kind": "test", "ref": "tests/test_log.py" },
+    { "kind": "test", "ref": "tests/test_pipeline.py" }
+  ],
+  "measurementEvents": []
+}

@@ -69,19 +69,35 @@
       "criteria": [
         {
           "text": "Given the AI system, when prompted, then it generates a list of video ideas.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given an inappropriate idea, when flagged, then it is removed from the list.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: All generated ideas are logged for review.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
+      "files_touched": [
+        "src/ideas/__init__.py",
+        "src/ideas/model.py",
+        "src/ideas/moderation.py",
+        "src/ideas/moderation_rules.json",
+        "src/ideas/generator.py",
+        "src/ideas/log.py",
+        "src/ideas/pipeline.py",
+        "scripts/demo_story_001.py",
+        ".gitignore"
+      ],
+      "tests_added": [
+        "tests/test_model.py",
+        "tests/test_moderation.py",
+        "tests/test_generator.py",
+        "tests/test_log.py",
+        "tests/test_pipeline.py"
+      ],
       "notes": null,
       "updated_at": null,
       "verification": {
