@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1",
+  "projectId": "79a40256-4202-4f94-ab78-756a4cff08e4",
+  "storyId": "STORY-002",
+  "projectTruthBaseRevision": 1,
+  "observedAt": "2026-11-19T23:30:19Z",
+  "sourceCommitSha": null,
+  "factProposals": [
+    { "dimension": "data", "value": "Generated scripts are stored in an append-only JSON-lines log at data/scripts.jsonl. Each line holds the full script text (intro, sections, conclusion), its idea id and status, a timestamp, an idempotency key and the reasons it was flagged. Saving the same script id and status twice adds no line, and a failed save raises ScriptSaveError.", "evidence": "src/scripts/log.py" },
+    { "dimension": "approval_points", "value": "A script leaves the pipeline only as draft or flagged. No code sets a script to approved, so a person must approve every script.", "evidence": "tests/test_script_pipeline.py" },
+    { "dimension": "exceptions", "value": "A script is flagged for human review, with the reason stored, when it has missing parts, hits the moderation blocklist, may quote the Quran or a hadith, contains a long quotation, contains Arabic script, or comes from a generator that marked it approved.", "evidence": "src/scripts/review.py" },
+    { "dimension": "systems", "value": "Script generation sits behind a ScriptGenerator interface. Only a stub implementation exists, which builds a generic script from the idea's title and theme, so a real generator can replace it later.", "evidence": "src/scripts/generator.py#L35" },
+    { "dimension": "integrations", "value": "No external AI service is connected for scripts; the stub needs no API key and makes no network call.", "evidence": "src/scripts/generator.py#L35" },
+    { "dimension": "inputs", "value": "A script is written for one video idea from the idea pipeline. An idea that was removed gets no script.", "evidence": "src/scripts/pipeline.py" }
+  ],
+  "decisions": [
+    { "statement": "Build the script generator as a stub first, with no API key and no network call.", "rationale": "The repository is public and no credential exists.", "evidence": "src/scripts/generator.py#L35" },
+    { "statement": "Copy the small blocklist matcher into the script review instead of importing the private function from STORY-001.", "rationale": "Importing a private function would tie this story to STORY-001 internals; the cost is about four duplicated lines, and the STORY-001 files stay untouched.", "evidence": "src/scripts/review.py#L116" },
+    { "statement": "A script returned by a generator already marked approved is flagged with the reason 'generator returned a pre-approved script', which is logged, instead of being reset to draft quietly.", "rationale": "A generator must not be able to bypass human approval, and a person should be able to see that it tried.", "evidence": "src/scripts/pipeline.py#L53" },
+    { "statement": "Flag any script that may quote a Quran verse or a hadith for human checking, using word and pattern matching on the script text.", "rationale": "The project owner asked that every script that quotes the Quran or a hadith is checked by a person.", "evidence": "src/scripts/review.py" },
+    { "statement": "Match 'sahih muslim' as a hadith source, not the bare word 'muslim'.", "rationale": "The project owner asked that ordinary uses of the word Muslim do not flag every script.", "evidence": "src/scripts/review.py#L85" },
+    { "statement": "Log the draft script before reviewing it, then log the flagged version with its reasons.", "rationale": "A crash during review must not lose a script, and the history of draft then flagged is kept.", "evidence": "src/scripts/pipeline.py#L57" },
+    { "statement": "Keep the script log as its own copy of the idea-log pattern in src/scripts/ and leave the STORY-001 files untouched.", "rationale": "The project owner asked to leave STORY-001 files untouched.", "evidence": "src/scripts/log.py" }
+  ],
+  "limitations": [
+    { "statement": "The generator is a stub, not a real AI. The criterion that the system generates a script is met only with the stub, and the 'AI generates incomplete scripts' and 'AI generates inappropriate content' failure paths are shown only with fake generators in the tests and demo.", "evidence": "src/scripts/generator.py#L35" },
+    { "statement": "Quran and hadith detection is pattern matching only. It can miss a quotation that has no marker word, and it flags harmless uses of words such as 'verse' or 'hadith'. Nothing checks that a quotation is accurate.", "evidence": "src/scripts/review.py" },
+    { "statement": "Scripts are generated in English only. Any Arabic-script text in a script is flagged for human review.", "evidence": "src/scripts/review.py#L91, tests/test_script_review.py" },
+    { "statement": "The citation pattern for numbers such as 2:255 also matches clock times such as 10:30.", "evidence": "src/scripts/review.py#L72" },
+    { "statement": "The script log supports one writer only; two processes writing at once are not protected against each other.", "evidence": "src/scripts/log.py#L43" },
+    { "statement": "The pipeline does not read statuses back from the log, so re-running it after a human approves a script can log a new draft line for the same script id.", "evidence": "src/scripts/pipeline.py" },
+    { "statement": "There are no timeouts or retries yet, because nothing makes an external call.", "evidence": "src/scripts/generator.py#L35" }
+  ],
+  "demonstrationEvidence": [
+    { "kind": "test", "ref": "tests/test_script_model.py" },
+    { "kind": "test", "ref": "tests/test_script_generator.py" },
+    { "kind": "test", "ref": "tests/test_script_review.py" },
+    { "kind": "test", "ref": "tests/test_script_log.py" },
+    { "kind": "test", "ref": "tests/test_script_pipeline.py" }
+  ],
+  "measurementEvents": []
+}

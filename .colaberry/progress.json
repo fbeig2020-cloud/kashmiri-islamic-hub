@@ -123,20 +123,34 @@
       "criteria": [
         {
           "text": "Given a video idea, when processed, then the system generates a script.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given an incomplete script, when reviewed, then it is flagged for human completion.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: All scripts are logged for review.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
+      "files_touched": [
+        "src/scripts/__init__.py",
+        "src/scripts/model.py",
+        "src/scripts/generator.py",
+        "src/scripts/review.py",
+        "src/scripts/log.py",
+        "src/scripts/pipeline.py",
+        "scripts/demo_story_002.py"
+      ],
+      "tests_added": [
+        "tests/test_script_model.py",
+        "tests/test_script_generator.py",
+        "tests/test_script_review.py",
+        "tests/test_script_log.py",
+        "tests/test_script_pipeline.py"
+      ],
+      "notes": "Scripts come from a stub generator, not a real AI model; no API key or network call exists yet.",
       "updated_at": null,
       "verification": {
         "state": "not_started",
