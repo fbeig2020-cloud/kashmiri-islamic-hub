@@ -175,20 +175,31 @@
       "criteria": [
         {
           "text": "Given a generated script, when uncertain, then it is flagged for review.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given a flagged item, when reviewed, then it is either approved or rejected.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: All flagged items are logged with reviewer actions.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
+      "files_touched": [
+        "src/scripts/actions.py",
+        "src/scripts/action_log.py",
+        "src/scripts/review_queue.py",
+        "scripts/review_scripts.py",
+        "scripts/demo_story_003.py"
+      ],
+      "tests_added": [
+        "tests/test_script_actions.py",
+        "tests/test_script_action_log.py",
+        "tests/test_script_review_queue.py",
+        "tests/test_review_cli.py"
+      ],
+      "notes": "Uncertain means a STORY-002 rule matched (pattern checks), not an AI confidence score; scripts come from a stub. Review is by command line with a typed-in reviewer name and no login. Refused attempts are not logged.",
       "updated_at": null,
       "verification": {
         "state": "not_started",

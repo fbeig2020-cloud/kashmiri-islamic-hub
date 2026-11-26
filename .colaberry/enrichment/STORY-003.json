@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1",
+  "projectId": "79a40256-4202-4f94-ab78-756a4cff08e4",
+  "storyId": "STORY-003",
+  "projectTruthBaseRevision": 1,
+  "observedAt": "2026-11-26T01:41:09Z",
+  "sourceCommitSha": "d27963874555ec190c15ff9df40bec1d574a4fb7",
+  "factProposals": [
+    {
+      "dimension": "approval_points",
+      "value": "A flagged script can be approved or rejected by a reviewer, and either decision is final. A script with missing parts can only be rejected. Scripts that were not flagged cannot be reviewed. Approving publishes nothing.",
+      "evidence": "src/scripts/actions.py, tests/test_script_actions.py"
+    },
+    {
+      "dimension": "data",
+      "value": "Reviewer decisions are stored in an append-only JSON-lines log at data/review_actions.jsonl with the script id, decision, typed reviewer name, note, a hash of the reviewed text and the time. There is one decision per script id. The script log keeps the status 'flagged' after a decision.",
+      "evidence": "src/scripts/action_log.py, tests/test_script_action_log.py"
+    },
+    {
+      "dimension": "outputs",
+      "value": "Reviewers use a command-line script that lists flagged scripts with their full text and flag reasons, records approve or reject, and prints a receipt. There is no web page.",
+      "evidence": "scripts/review_scripts.py, tests/test_review_cli.py"
+    },
+    {
+      "dimension": "exceptions",
+      "value": "A conflicting second decision is refused with an error naming who decided, an unreadable log raises an error instead of showing an empty list, and a script left as draft by a crash while flagging is recovered when the list is next read.",
+      "evidence": "tests/test_script_review_queue.py"
+    },
+    {
+      "dimension": "security_context",
+      "value": "There is no login: the reviewer is a name typed on the command line and is not verified.",
+      "evidence": "scripts/review_scripts.py, src/scripts/actions.py"
+    }
+  ],
+  "decisions": [
+    {
+      "statement": "Treat a script as uncertain when one of the existing STORY-002 review rules matches it; add no confidence score.",
+      "rationale": "The generator is a stub and produces no confidence value.",
+      "evidence": "src/scripts/review_queue.py, src/scripts/review.py"
+    },
+    {
+      "statement": "Make both approval and rejection final.",
+      "rationale": "The project owner's choice for this story.",
+      "evidence": "src/scripts/actions.py, test_a_decision_cannot_be_reversed in tests/test_script_actions.py"
+    },
+    {
+      "statement": "Allow only rejection for a script with missing parts; other flag reasons can be approved by a reviewer.",
+      "rationale": "The project owner's choice.",
+      "evidence": "tests/test_script_actions.py"
+    },
+    {
+      "statement": "An identical repeat decision changes nothing; any other second decision raises an error naming who decided and what.",
+      "rationale": "The project owner asked that a conflicting decision is never dropped silently or reported as success.",
+      "evidence": "src/scripts/action_log.py, tests/test_script_action_log.py"
+    },
+    {
+      "statement": "Keep reviewer decisions in their own log and leave the STORY-001 and STORY-002 files unchanged.",
+      "rationale": "The project owner asked that earlier story files are not changed without asking.",
+      "evidence": "src/scripts/action_log.py"
+    },
+    {
+      "statement": "Recover a missing flag line by re-running the review checks on draft-only scripts when the queue is read.",
+      "rationale": "The project owner chose this so a crash while flagging does not hide a script, without changing the pipeline.",
+      "evidence": "src/scripts/review_queue.py, test_crash_while_flagging_is_recovered_with_exactly_one_flag_line in tests/test_script_review_queue.py"
+    }
+  ],
+  "limitations": [
+    {
+      "statement": "A rejected script cannot be replaced by a regenerated one with the same id: the new text can never be approved.",
+      "evidence": "test_a_regenerated_script_with_the_same_id_cannot_be_approved in tests/test_script_actions.py"
+    },
+    {
+      "statement": "A script flagged only because the generator marked it approved (pre_approved) is not recovered after a crash while flagging; it stays out of the list until the pipeline is run again for that idea.",
+      "evidence": "test_pre_approved_only_is_not_recovered in tests/test_script_review_queue.py"
+    },
+    {
+      "statement": "Crash recovery sees only the script's title and theme, not the idea's, so a blocked word that appears only in the idea would be missed if a generator changed them.",
+      "evidence": "src/scripts/review_queue.py"
+    },
+    {
+      "statement": "The typed reviewer name proves nothing about who decided.",
+      "evidence": "src/scripts/actions.py"
+    },
+    {
+      "statement": "One reviewer at a time: two decisions or listings made at the same moment are not protected against each other.",
+      "evidence": "src/scripts/action_log.py, src/scripts/actions.py"
+    },
+    {
+      "statement": "Listing and reviewing may write to the script log, because that is where a missing flag line is recovered.",
+      "evidence": "src/scripts/review_queue.py, test_a_recovered_script_can_be_reviewed_without_listing_first in tests/test_script_review_queue.py"
+    },
+    {
+      "statement": "Refused review attempts are not recorded; only accepted decisions are logged.",
+      "evidence": "test_refused_decisions_save_nothing in tests/test_script_review_queue.py"
+    }
+  ],
+  "demonstrationEvidence": [
+    { "kind": "test", "ref": "tests/test_script_actions.py" },
+    { "kind": "test", "ref": "tests/test_script_action_log.py" },
+    { "kind": "test", "ref": "tests/test_script_review_queue.py" },
+    { "kind": "test", "ref": "tests/test_review_cli.py" }
+  ],
+  "measurementEvents": []
+}
